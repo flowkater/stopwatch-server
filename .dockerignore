@@ -1,0 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE
+.idea
+.vscode
+
+# 기타
+README.md
+*.log
+tmp/ 
