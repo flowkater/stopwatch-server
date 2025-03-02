@@ -1,10 +1,11 @@
 package websocket
 
 import (
+	"encoding/json"
 	"log"
 	"sync"
 
-	"github.com/flowkater/stopwatch-server/internal/domain/message"
+	"github.com/flowkater/stopwatch-server/internal/interfaces/dto"
 	"github.com/gofiber/websocket/v2"
 )
 
@@ -63,9 +64,17 @@ func (m *ClientManager) GetUserID(conn *websocket.Conn) (string, bool) {
 }
 
 // Broadcast 모든 클라이언트에게 메시지 전송
-func (m *ClientManager) Broadcast(msg *message.Message) {
+func (m *ClientManager) Broadcast(msg *dto.Message) {
 	m.mu.RLock()
 	defer m.mu.RUnlock()
+
+	jsonData, err := json.Marshal(msg)
+	if err != nil {
+		log.Println("JSON marshaling error:", err)
+		return
+	}
+
+	log.Printf("Broadcasting message: %s", string(jsonData))
 
 	for conn := range m.clients {
 		if err := conn.WriteJSON(msg); err != nil {

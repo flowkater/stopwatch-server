@@ -19,15 +19,14 @@ DDD(Domain-Driven Design) 아키텍처를 따릅니다:
 │       └── main.go        # 메인 함수
 ├── internal/
 │   ├── domain/            # 도메인 모델과 비즈니스 규칙
-│   │   ├── message/       # 메시지 도메인
-│   │   ├── user/          # 사용자 도메인
-│   │   └── stopwatch/     # 스탑워치 도메인
+│   │   └── user_state/    # 사용자 상태 도메인
 │   ├── application/       # 애플리케이션 서비스 및 유스케이스
 │   │   └── services/      # 애플리케이션 서비스
 │   ├── infrastructure/    # 외부 시스템 연동 코드
 │   │   ├── repository/    # 레포지토리 구현체
 │   │   └── websocket/     # 웹소켓 기능 구현
 │   └── interfaces/        # 외부 인터페이스
+│       ├── dto/           # 데이터 전송 객체
 │       └── handlers/      # 핸들러 (컨트롤러)
 └── pkg/
     └── config/            # 설정 관련 코드
@@ -79,3 +78,13 @@ ws://localhost:3000/ws
 - `online`: 온라인 상태
 - `stopwatchRunning`: 스탑워치 실행 중 여부
 - `elapsedTime`: 경과 시간(초 단위)
+
+## 배포
+
+Fly.io를 통해 배포할 수 있습니다:
+
+```
+flyctl deploy
+```
+
+배포된 서버 주소: `wss://stopwatch-server-quiet-cherry-718.fly.dev/ws`
